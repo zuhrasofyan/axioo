@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
-import './App.scss';
+import sam from './img/ui-sam.jpg';
+import './App.css';
 
 class App extends Component {
   render() {
@@ -13,6 +14,8 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
+        <button className="btn btn-primary">dfdfdf</button>
+        <img src={sam} alt=""/>
       </div>
     );
   }
