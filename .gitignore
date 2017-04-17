@@ -22,3 +22,5 @@ yarn.lock
 src/**/*.css
 
 
+
+.idea/
