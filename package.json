@@ -2,8 +2,11 @@
   "name": "axioo",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://localhost2/myapp",
   "dependencies": {
+    "bootstrap": "3",
     "react": "^15.5.4",
+    "react-bootstrap": "^0.30.8",
     "react-dom": "^15.5.4"
   },
   "devDependencies": {
@@ -15,7 +18,7 @@
     "build-css": "node-sass src/ -o src/",
     "watch-css": "npm run build-css && node-sass src/ -o src/ --watch --recursive",
     "start-js": "react-scripts start",
-    "start" : "npm-run-all -p watch-css start-js",
+    "start": "npm-run-all -p watch-css start-js",
     "build": "npm run build-css && react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
