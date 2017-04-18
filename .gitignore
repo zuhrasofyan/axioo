@@ -15,8 +15,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-yarn.lock
-.idea/
+
 
 # exclude css
 src/**/*.css
@@ -24,3 +23,5 @@ src/**/*.css
 
 
 .idea/
+
+yarn.lock
