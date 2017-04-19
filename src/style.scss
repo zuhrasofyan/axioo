@@ -52,10 +52,10 @@ section {
 ==================================*/
 
 header {
-  background-color: #48A5FF;
-  color: #fff;
-  padding-top: 20px;
-  padding-bottom: 12px;
+  //background-color: #48A5FF;
+  //color: #fff;
+  //padding-top: 20px;
+  //padding-bottom: 12px;
 }
 
 header .logo-wrapper img {
@@ -67,9 +67,8 @@ header .menu-links {
 }
 
 header .menu-links a {
-  font-size: 20px;
+  font-size: 15px;
   color: #fff;
-  font-weight: 500;
   margin: 15px;
 
 }
@@ -87,6 +86,9 @@ header .menu-links a:hover, header .menu-links a:focus {
   transition: all 0.2s ease;
 }
 
+nav.navbar.navbar-inverse {
+  border-radius: 0px;
+}
 /*================================
   HOME SECTION STYLES
 ==================================*/
