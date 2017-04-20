@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
-import { Glyphicon } from 'react-bootstrap';
+import { Nav, NavItem, Glyphicon } from 'react-bootstrap';
 
 class HeaderLinks extends Component {
   render () {
     return (
-      <div className="menu-links scroll-me">
-        <a href="#header"> <Glyphicon glyph="home" /> </a>
-        <a href="#about"> About </a>
-        <a href="#clients"> <Glyphicon glyph="home" /> </a>
-        <a href="#contact"> <Glyphicon glyph="home" /> </a>
-      </div>
+      <Nav pullRight>
+        <NavItem eventKey={1} href="#"><Glyphicon glyph="home" /> Link1</NavItem>
+        <NavItem eventKey={2} href="#"><Glyphicon glyph="home" /> Link2</NavItem>
+      </Nav>
     );
   }
 }
