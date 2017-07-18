@@ -28,6 +28,7 @@ class Layout extends Component {
     super(props);
     this.state = {
       title: "hello",
+      list: list,
     };
     this.changeTitle = this.changeTitle.bind(this);
   }
@@ -39,18 +40,18 @@ class Layout extends Component {
       <div>
         <Header />
         <Body changeTitle={this.changeTitle} title={this.state.title}/>
-        { list.map(function(item){
-          return (
-            <div key={ item.objectID }>
-              <span>
-                <a href={ item.url }>{ item.title }</a> &nbsp;
-              </span>
-              <span>{ item.author } </span>
-              <span>{ item.num_comments } </span>
-              <span>{ item.points } </span>
-            </div>
-          );
-        }) }
+        {this.state.list.map((item) =>
+
+          <div key={ item.objectID }>
+            <span>
+              <a href={ item.url }>{ item.title }</a> &nbsp;
+            </span>
+            <span>{ item.author } </span>
+            <span>{ item.num_comments } </span>
+            <span>{ item.points } </span>
+          </div>
+
+        )}
       </div>
     );
   }
