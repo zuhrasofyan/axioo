@@ -22,6 +22,13 @@ const list = [
   },
 ];
 
+function isSearched(searchTerm) {
+  return function(item) {
+    // The includes() method determines whether one string may be found within another string, returning true or false as appropriate.
+    return !searchTerm ||
+        item.title.toLowerCase().includes(searchTerm.toLowerCase());
+  }
+}
 
 class Layout extends Component {
   constructor(props) {
@@ -29,13 +36,17 @@ class Layout extends Component {
     this.state = {
       title: "hello",
       list: list,
+      searchTerm: '',
     };
     this.changeTitle = this.changeTitle.bind(this);
     this.onDismiss = this.onDismiss.bind(this);
+    this.onSearchChange = this.onSearchChange.bind(this);
   }
+
   changeTitle(title) {
     this.setState({title});
   }
+
   onDismiss(id) {
     //isNotId ES5
     // function isNotId(item) {
@@ -49,13 +60,25 @@ class Layout extends Component {
     this.setState({ list: updatedList });
   }
 
+  onSearchChange(event) {
+    this.setState({searchTerm: event.target.value});
+  }
+
   render() {
     return(
       <div>
         <Header />
         <Body changeTitle={this.changeTitle} title={this.state.title}/>
+
+        <span>Search Box</span>
+        <form>
+          <input
+            type="text"
+            onChange={this.onSearchChange}
+          />
+        </form>
         
-        {this.state.list.map((item) =>
+        {this.state.list.filter(isSearched(this.state.searchTerm)).map((item) =>
 
           <div key={ item.objectID }>
             <span>
