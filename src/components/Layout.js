@@ -31,15 +31,30 @@ class Layout extends Component {
       list: list,
     };
     this.changeTitle = this.changeTitle.bind(this);
+    this.onDismiss = this.onDismiss.bind(this);
   }
   changeTitle(title) {
     this.setState({title});
   }
+  onDismiss(id) {
+    //isNotId ES5
+    // function isNotId(item) {
+    //   return item.objectID !== id;
+    // }
+
+    //isNotId ES6
+    const isNotId = item => item.objectID !== id;
+
+    const updatedList = this.state.list.filter(isNotId);
+    this.setState({ list: updatedList });
+  }
+
   render() {
     return(
       <div>
         <Header />
         <Body changeTitle={this.changeTitle} title={this.state.title}/>
+        
         {this.state.list.map((item) =>
 
           <div key={ item.objectID }>
@@ -49,6 +64,13 @@ class Layout extends Component {
             <span>{ item.author } </span>
             <span>{ item.num_comments } </span>
             <span>{ item.points } </span>
+            <span>
+              <button onClick={() => this.onDismiss(item.objectID)}
+                      type="button"
+              >
+                Dismiss
+              </button>
+            </span>
           </div>
 
         )}
