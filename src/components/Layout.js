@@ -69,21 +69,23 @@ class Layout extends Component {
   }
 
   render() {
-    const { searchTerm, list } = this.state;
+    const { searchTerm, list, title } = this.state;
     return(
-      <div>
+      <div className="page">
         <Header />
-        <Body changeTitle={this.changeTitle} title={this.state.title}/>
-        <Search
-          value={searchTerm}
-          onChange={this.onSearchChange}
-          Search
-        />
-        <Table
-          list={list}
-          pattern={searchTerm}
-          onDismiss={this.onDismiss}
-        />
+        <Body changeTitle={this.changeTitle} title={title}/>
+        <div className="interactions">
+          <Search
+            value={searchTerm}
+            onChange={this.onSearchChange}
+            Search
+          />
+          <Table
+            list={list}
+            pattern={searchTerm}
+            onDismiss={this.onDismiss}
+          />
+        </div>
       </div>
     );
   }
@@ -112,10 +114,10 @@ class Table extends Component {
   render() {
     const { list, pattern, onDismiss } = this.props;
     return (
-      <div>
+      <div className="table">
         {list.filter(isSearched(pattern)).map((item) =>
 
-          <div key={ item.objectID }>
+          <div key={ item.objectID } className="table-row">
             <span>
               <a href={ item.url }>{ item.title }</a> &nbsp;
             </span>
@@ -123,17 +125,36 @@ class Table extends Component {
             <span>{ item.num_comments } </span>
             <span>{ item.points } </span>
             <span>
-              <button onClick={() => onDismiss(item.objectID)}
-                      type="button"
+              <Button
+                onClick={() => onDismiss(item.objectID)}
+                className="button-inline"
               >
                 Dismiss
-              </button>
+              </Button>
             </span>
           </div>
 
         )}
       </div>
     )
+  }
+}
+
+class Button extends Component {
+  render() {
+    const { onClick,
+      className = '',
+      children } = this.props;
+
+    return (
+      <button
+        onClick={onClick}
+        className={className}
+        type="button"
+      >
+        {children}
+      </button>
+    );
   }
 }
 
