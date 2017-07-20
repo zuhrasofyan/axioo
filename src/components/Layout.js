@@ -52,12 +52,12 @@ class Layout extends Component {
   }
 
   onDismiss(id) {
-    //isNotId ES5
+    //function isNotId in ES5
     // function isNotId(item) {
     //   return item.objectID !== id;
     // }
 
-    //isNotId ES6
+    //function isNotId in ES6
     const isNotId = item => item.objectID !== id;
 
     const updatedList = this.state.list.filter(isNotId);
@@ -65,24 +65,55 @@ class Layout extends Component {
   }
 
   onSearchChange(event) {
-    this.setState({searchTerm: event.target.value});
+    this.setState({ searchTerm: event.target.value });
   }
 
   render() {
+    const { searchTerm, list } = this.state;
     return(
       <div>
         <Header />
         <Body changeTitle={this.changeTitle} title={this.state.title}/>
+        <Search
+          value={searchTerm}
+          onChange={this.onSearchChange}
+          Search
+        />
+        <Table
+          list={list}
+          pattern={searchTerm}
+          onDismiss={this.onDismiss}
+        />
+      </div>
+    );
+  }
+}
 
+class Search extends Component {
+  render() {
+    const { value, onChange, children } = this.props;
+    return (
+      <div>
         <span>Search Box</span>
         <form>
+          {children}
           <input
             type="text"
-            onChange={this.onSearchChange}
+            value={value}
+            onChange={onChange}
           />
         </form>
-        
-        {this.state.list.filter(isSearched(this.state.searchTerm)).map((item) =>
+      </div>
+    );
+  }
+}
+
+class Table extends Component {
+  render() {
+    const { list, pattern, onDismiss } = this.props;
+    return (
+      <div>
+        {list.filter(isSearched(pattern)).map((item) =>
 
           <div key={ item.objectID }>
             <span>
@@ -92,7 +123,7 @@ class Layout extends Component {
             <span>{ item.num_comments } </span>
             <span>{ item.points } </span>
             <span>
-              <button onClick={() => this.onDismiss(item.objectID)}
+              <button onClick={() => onDismiss(item.objectID)}
                       type="button"
               >
                 Dismiss
@@ -102,8 +133,10 @@ class Layout extends Component {
 
         )}
       </div>
-    );
+    )
   }
 }
+
+
 
 export default Layout;
