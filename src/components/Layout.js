@@ -22,13 +22,17 @@ const list = [
   },
 ];
 
-function isSearched(searchTerm) {
-  return function(item) {
-    // The includes() method determines whether one string may be found within another string, returning true or false as appropriate.
-    return !searchTerm ||
-        item.title.toLowerCase().includes(searchTerm.toLowerCase());
-  }
-}
+//function isSearched in ES5
+// function isSearched(searchTerm) {
+//   return function(item) {
+//     // The includes() method determines whether one string may be found within another string, returning true or false as appropriate.
+//     return !searchTerm ||
+//         item.title.toLowerCase().includes(searchTerm.toLowerCase());
+//   }
+// }
+
+//function isSearched in ES6
+const isSearched = (searchTerm) => (item) => !searchTerm || item.title.toLowerCase().includes(searchTerm.toLowerCase());
 
 class Layout extends Component {
   constructor(props) {
