@@ -22,6 +22,11 @@ const list = [
   },
 ];
 
+const DEFAULT_QUERY = 'redux';
+const PATH_BASE = 'https://hn.algolia.com/api/v1';
+const PATH_SEARCH = '/search';
+const PARAM_SEARCH = 'query=';
+
 //function isSearched in ES5
 // function isSearched(searchTerm) {
 //   return function(item) {
@@ -40,12 +45,33 @@ class Layout extends Component {
     this.state = {
       title: "hello",
       list: list,
-      searchTerm: '',
+      result: null,
+      searchTerm: DEFAULT_QUERY,
     };
+    this.setSearchTopStories = this.setSearchTopStories.bind(this);
+    this.fetchSearchTopStories = this.fetchSearchTopStories.bind(this);
+
     this.changeTitle = this.changeTitle.bind(this);
     this.onDismiss = this.onDismiss.bind(this);
     this.onSearchChange = this.onSearchChange.bind(this);
   }
+
+  setSearchTopStories(result){
+    this.setState({result});
+  }
+
+  fetchSearchTopStories(searchTerm) {
+    fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}`)
+      .then(response => response.json())
+      .then(result => this.setSearchTopStories(result))
+      .catch(e => e);
+  }
+
+  componentDidMount(){
+    const { searchTerm } = this.state;
+    this.fetchSearchTopStories(searchTerm);
+  }
+
 
   changeTitle(title) {
     this.setState({title});
@@ -69,7 +95,8 @@ class Layout extends Component {
   }
 
   render() {
-    const { searchTerm, list, title } = this.state;
+    const { searchTerm, list, title, result } = this.state;
+    if (!result) {return null;}
     return(
       <div className="page">
         <Header />
@@ -81,7 +108,7 @@ class Layout extends Component {
             Search
           />
           <Table
-            list={list}
+            list={result.hits}
             pattern={searchTerm}
             onDismiss={this.onDismiss}
           />
